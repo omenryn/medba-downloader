@@ -4,6 +4,16 @@ const dotenv = require('dotenv');
 const fs = require('fs');
 const path = require('path');
 
+let ytDlpBin = 'yt-dlp';
+let ffmpegBin = 'ffmpeg';
+if (process.env.IS_ELECTRON) {
+  ytDlpBin = path.join(__dirname, '..', 'win-desktop-app', 'bin', 'yt-dlp.exe');
+  ffmpegBin = path.join(__dirname, '..', 'win-desktop-app', 'bin', 'ffmpeg.exe');
+  process.env.FFMPEG_PATH = ffmpegBin;
+}
+global.ytDlpBin = ytDlpBin;
+global.ffmpegBin = ffmpegBin;
+
 dotenv.config();
 
 const app = express();

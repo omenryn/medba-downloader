@@ -205,7 +205,7 @@ function isValidYouTubeUrl(value) {
 
 function runYtDlp(args) {
   return new Promise((resolve, reject) => {
-    const child = spawn('yt-dlp', args);
+    const child = spawn(global.ytDlpBin, args);
     let stdout = '';
     let stderr = '';
     let timedOut = false;

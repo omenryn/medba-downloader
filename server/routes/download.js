@@ -318,7 +318,7 @@ function contentTypeFromExtension(ext) {
 
 function runYtDlp(args) {
   return new Promise((resolve, reject) => {
-    const child = spawn('yt-dlp', args);
+    const child = spawn(global.ytDlpBin, args);
     let stdout = '';
     let stderr = '';
     let timedOut = false;
@@ -407,7 +407,7 @@ function streamFileWithCleanup({ res, filePath, contentType, downloadName }) {
       }
 
       cleaned = true;
-      fs.unlink(filePath, () => {});
+      fs.unlink(filePath, () => { });
     };
 
     fileStream.on('error', () => {

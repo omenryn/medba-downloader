@@ -1,0 +1,55 @@
+{
+  "name": "win-desktop-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "concurrently \"cd ../server && npm run dev\" \"cd ../client && npm run dev\" \"wait-on tcp:5173 && npm start\"",
+    "build:client": "cd ../client && npm install && npm run build",
+    "build:server": "cd ../server && npm install",
+    "build:app": "electron-builder --win -c.extraMetadata.main=main.js",
+    "build": "npm run build:server && npm run build:client && npm run build:app"
+  },
+  "build": {
+    "appId": "com.medbadownloader.app",
+    "productName": "Medba Downloader",
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "../client/public/assets/favicon.png"
+    },
+    "extraResources": [
+      {
+        "from": "bin",
+        "to": "bin",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "files": [
+      "./main.js",
+      "./package.json",
+      "../server/**/*",
+      "../client/dist/**/*",
+      "!../server/tmp/*",
+      "!../server/node_modules/**/*"
+    ]
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "electron": "^40.6.1",
+    "electron-builder": "^26.8.1",
+    "is-dev": "^0.2.1",
+    "wait-on": "^9.0.4"
+  }
+}
